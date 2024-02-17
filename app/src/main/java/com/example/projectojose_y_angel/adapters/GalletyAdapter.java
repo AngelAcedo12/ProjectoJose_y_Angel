@@ -48,7 +48,7 @@ public class GalletyAdapter extends BaseAdapter {
         ImageView imageView = new ImageView(ctx);
         imageView.setLayoutParams(new GridView.LayoutParams(350, 350));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageBitmap(imagensArray.get(i).getImage());
+        imageView.setImageBitmap(imagensArray.get(i).getImageCompress());
         imageView.setPadding(2,2,2,2);
         imageView.setBackground(ContextCompat.getDrawable(ctx,R.drawable.borderfotos));
 

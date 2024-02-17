@@ -7,7 +7,7 @@ public class Image {
     private String volumeName;
     private int id;
     private Bitmap image;
-    private Uri uriImage;
+    private Bitmap imageCompress;
 
     public Image(String volumeName, int id) {
         this.volumeName = volumeName;
@@ -21,12 +21,13 @@ public class Image {
         return image;
     }
 
-    public Uri getUriImage() {
-        return uriImage;
+
+    public Bitmap getImageCompress() {
+        return imageCompress;
     }
 
-    public void setUriImage(Uri uriImage) {
-        this.uriImage = uriImage;
+    public void setImageCompress(Bitmap imageCompress) {
+        this.imageCompress = imageCompress;
     }
 
     public void setImage(Bitmap image) {
