@@ -59,7 +59,6 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     image.setUri(MediaStore.Images.Media.getContentUri(image.getVolumeName(),image.getId()));
                 }
-
                 images.add(image);
                 count++;
             }

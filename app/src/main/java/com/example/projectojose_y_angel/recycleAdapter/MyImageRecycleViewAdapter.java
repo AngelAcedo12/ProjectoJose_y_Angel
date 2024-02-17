@@ -1,24 +1,19 @@
 package com.example.projectojose_y_angel.recycleAdapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
-import com.example.projectojose_y_angel.utils.Compresosr;
-import com.example.projectojose_y_angel.utils.CompresosrNoAsync;
 import com.squareup.picasso.Picasso;
 
 
-import java.io.IOException;
 import java.util.List;
 
 public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecycleViewAdapter.MyViewHolder> {
