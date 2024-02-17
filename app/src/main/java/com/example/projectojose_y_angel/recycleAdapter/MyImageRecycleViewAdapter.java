@@ -65,7 +65,6 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
         Picasso.with(ctx).load(image.getUri()).centerCrop().resize(400,400).into(imageView);
 
-
         }
 
         @Override
@@ -74,7 +73,6 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
                 mClickListener.onItemClick(v,getAdapterPosition());
         }
     }
-
     public interface ItemClickListener{
         void onItemClick(View activista, int position);
     }
