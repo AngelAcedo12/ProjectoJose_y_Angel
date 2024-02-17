@@ -1,40 +1,43 @@
 package com.example.projectojose_y_angel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.GridView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.projectojose_y_angel.adapters.GalletyAdapter;
+import com.example.projectojose_y_angel.models.Image;
+import com.example.projectojose_y_angel.recycleAdapter.MyImageRecycleViewAdapter;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
 import com.example.projectojose_y_angel.utils.loaderImageInBackGround;
 
-public class GaleriaActivity extends AppCompatActivity implements loaderImageInBackGround.TaskCompleted {
+import java.util.List;
 
-    GridView gallery;
+public class GaleriaActivity extends AppCompatActivity implements MyImageRecycleViewAdapter.ItemClickListener,loaderImageInBackGround.TaskCompleted {
+
+    RecyclerView galleryRecycleView;
+    MyImageRecycleViewAdapter myImageRecycleViewAdapter;
+    private int numeroColumnas=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galeria);
 
 
-        gallery = (GridView) findViewById(R.id.galleryView);
-
-
-
-        gallery.setOnItemClickListener((adapterView, view, i, l) -> {
-            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
-        });
+        galleryRecycleView = findViewById(R.id.galleryRecycleView);
 
     }
 
     @Override
     public void onTaskCompleded(boolean res) {
-
-        GalletyAdapter galletyAdapter = new GalletyAdapter(this);
-        galletyAdapter.setImagensArray(RepositoryImageInSmartphone.getInstance().getImages());
-        gallery.setAdapter(galletyAdapter);
+        List<Image> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
+        myImageRecycleViewAdapter = new MyImageRecycleViewAdapter(imagenes);
+        myImageRecycleViewAdapter.setCLickListener(this);
+        galleryRecycleView.setLayoutManager(new GridLayoutManager(this,numeroColumnas));
+        galleryRecycleView.setAdapter(myImageRecycleViewAdapter);
     }
 
     @Override
@@ -42,5 +45,10 @@ public class GaleriaActivity extends AppCompatActivity implements loaderImageInB
         super.onStart();
         loaderImageInBackGround loader = new loaderImageInBackGround(this,GaleriaActivity.this);
         loader.execute();
+    }
+
+    @Override
+    public void onItemClick(View activista, int position) {
+        Toast.makeText(this,"pulsado la pos" + position,Toast.LENGTH_SHORT).show();
     }
 }

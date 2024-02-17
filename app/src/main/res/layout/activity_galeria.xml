@@ -7,30 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".GaleriaActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <GridView
-            android:id="@+id/galleryView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="100dp"
-            android:horizontalSpacing="0dp"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="0dp" >
-
-        </GridView>
-    </LinearLayout>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView2"
         android:layout_width="match_parent"
@@ -40,4 +16,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bot" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/galleryRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="629dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
