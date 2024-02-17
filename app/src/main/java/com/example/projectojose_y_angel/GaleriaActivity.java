@@ -13,6 +13,7 @@ import com.example.projectojose_y_angel.utils.loaderImageInBackGround;
 public class GaleriaActivity extends AppCompatActivity implements loaderImageInBackGround.TaskCompleted {
 
     GridView gallery;
+    boolean isLoader=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class GaleriaActivity extends AppCompatActivity implements loaderImageInB
 
     @Override
     public void onTaskCompleded(boolean res) {
-
+        isLoader=true;
         GalletyAdapter galletyAdapter = new GalletyAdapter(this);
         galletyAdapter.setImagensArray(RepositoryImageInSmartphone.getInstance().getImages());
         gallery.setAdapter(galletyAdapter);
@@ -40,7 +41,11 @@ public class GaleriaActivity extends AppCompatActivity implements loaderImageInB
     @Override
     protected void onStart() {
         super.onStart();
-        loaderImageInBackGround loader = new loaderImageInBackGround(this,GaleriaActivity.this);
-        loader.execute();
+        if (!isLoader){
+            loaderImageInBackGround loader = new loaderImageInBackGround(this,GaleriaActivity.this);
+            loader.execute();
+        }
+
+
     }
 }
