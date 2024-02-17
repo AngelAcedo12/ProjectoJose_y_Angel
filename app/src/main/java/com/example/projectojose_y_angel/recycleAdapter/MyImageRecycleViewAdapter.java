@@ -57,7 +57,7 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
         }
         public void render(Image image){
-            this.imageView.setImageBitmap(image.getImage());
+            this.imageView.setImageBitmap(image.getImageCompress());
         }
 
         @Override
