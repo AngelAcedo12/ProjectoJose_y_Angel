@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.projectojose_y_angel.adapters.GalletyAdapter;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.recycleAdapter.MyImageRecycleViewAdapter;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
@@ -36,7 +35,7 @@ public class GaleriaActivity extends AppCompatActivity implements MyImageRecycle
     public void onTaskCompleded(boolean res) {
         isLoader=true;
         List<Image> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
-        myImageRecycleViewAdapter = new MyImageRecycleViewAdapter(imagenes);
+        myImageRecycleViewAdapter = new MyImageRecycleViewAdapter(imagenes,this);
         myImageRecycleViewAdapter.setCLickListener(this);
         galleryRecycleView.setLayoutManager(new GridLayoutManager(this,numeroColumnas));
         galleryRecycleView.setAdapter(myImageRecycleViewAdapter);

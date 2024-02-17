@@ -6,32 +6,17 @@ import android.net.Uri;
 public class Image {
     private String volumeName;
     private int id;
-    private Bitmap image;
-    private Bitmap imageCompress;
-
-    public Image(String volumeName, int id) {
-        this.volumeName = volumeName;
-        this.id = id;
-    }
+    private Uri uri;
 
     public Image() {
     }
 
-    public Bitmap getImage() {
-        return image;
+    public Uri getUri() {
+        return uri;
     }
 
-
-    public Bitmap getImageCompress() {
-        return imageCompress;
-    }
-
-    public void setImageCompress(Bitmap imageCompress) {
-        this.imageCompress = imageCompress;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     public void setId(int id) {
@@ -42,9 +27,6 @@ public class Image {
         return id;
     }
 
-    public Image(String volumeName) {
-        this.volumeName = volumeName;
-    }
 
     public String getVolumeName() {
         return volumeName;

@@ -41,9 +41,9 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
     protected Boolean doInBackground(Object... objects) {
         int count = 0;
         try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            int maxWidth = 800;
-            int maxHeight = 600;
+
+            int maxWidth = 300;
+            int maxHeight = 300;
             String[] props = new String[]{
                     MediaStore.Images.Media.VOLUME_NAME,
                     MediaStore.Images.Media._ID,
@@ -52,24 +52,14 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
             };
             Uri mediaQuery = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             Cursor cursor = context.getContentResolver().query(mediaQuery, props, null, null, null);
-            while (cursor.moveToNext() & count<200) {
+            while (cursor.moveToNext() & count<100) {
                 Image image = new Image();
                 image.setVolumeName(cursor.getString(0));
                 image.setId(cursor.getInt(1));
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),
-                            MediaStore.Images.Media.getContentUri(image.getVolumeName(), image.getId()));
-                   // image.setImage(bitmap);
-                    if (bitmap.getWidth() > maxWidth || bitmap.getHeight() > maxHeight){
-                        float ratio = Math.min((float) maxWidth / bitmap.getWidth(), (float) maxHeight / bitmap.getHeight());
-                        int width = Math.round(ratio * bitmap.getWidth());
-                        int height = Math.round(ratio * bitmap.getHeight());
-                        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
-                    }
-                    bitmap.compress(Bitmap.CompressFormat.WEBP, 25, outputStream);
-                    image.setImageCompress(bitmap);
+                    image.setUri(MediaStore.Images.Media.getContentUri(image.getVolumeName(),image.getId()));
                 }
+
                 images.add(image);
                 count++;
             }

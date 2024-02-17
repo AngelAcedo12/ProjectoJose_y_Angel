@@ -1,5 +1,6 @@
 package com.example.projectojose_y_angel.recycleAdapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
+import com.example.projectojose_y_angel.utils.Compresosr;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecycleViewAdapter.MyViewHolder> {
+    private Context ctx;
     int layout;
     List<Image> lista;
     private ItemClickListener mClickListener;
-    public MyImageRecycleViewAdapter(List<Image> lista) {
+
+    public MyImageRecycleViewAdapter(List<Image> lista,Context context) {
         super();
         this.lista=lista;
+        this.ctx=context;
     }
 
     @NonNull
@@ -34,7 +40,11 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Image image = lista.get(position);
-        holder.render(image);
+        try {
+            holder.render(image);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void setCLickListener(ItemClickListener itemClickListener){
         this.mClickListener=itemClickListener;
@@ -43,8 +53,6 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
     public int getItemCount() {
         return lista.size();
     }
-
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
@@ -56,8 +64,8 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
 
         }
-        public void render(Image image){
-            this.imageView.setImageBitmap(image.getImageCompress());
+        public void render(Image image) throws IOException {
+            this.imageView.setImageBitmap(new Compresosr(ctx).uriToCompressBitMapp(image.getUri()));
         }
 
         @Override
