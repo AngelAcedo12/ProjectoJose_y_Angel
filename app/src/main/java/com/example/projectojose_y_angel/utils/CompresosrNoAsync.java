@@ -7,42 +7,18 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 
-import com.example.projectojose_y_angel.models.Image;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Compresosr {
+public class CompresosrNoAsync {
     private Context context;
-    private CompletableFuture<Void> currentTask;
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-    public Compresosr(Context context) {
+    public CompresosrNoAsync(Context context) {
         this.context = context;
     }
-    public void loadImage(Uri uri, ImageView imageView){
-        currentTask=CompletableFuture.supplyAsync(()-> {
-            try {
-                return uriToCompressBitMapp(uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return  null;
-            }
-        },executorService).thenAccept(bitmap -> {
-            if (bitmap != null) {
-                imageView.setImageBitmap((Bitmap) bitmap);
-            }
 
-    });
-    }
-    public void cancelCurrentTask() {
-        if (currentTask != null) {
-            currentTask.cancel(true);
-            currentTask = null;
-        }
-    }
     public Bitmap uriToCompressBitMapp(Uri uri) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int maxWidth = 400;

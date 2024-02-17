@@ -19,7 +19,7 @@ import java.util.List;
 
 public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean> {
     private List<Image> images = new ArrayList<>();
-    private Context context;
+    private final  Context context;
 
     private TaskCompleted taskCompleted;
     private ProgressDialog progressDialog;
@@ -52,7 +52,7 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
             };
             Uri mediaQuery = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             Cursor cursor = context.getContentResolver().query(mediaQuery, props, null, null, null);
-            while (cursor.moveToNext() & count<100) {
+            while (cursor.moveToNext()) {
                 Image image = new Image();
                 image.setVolumeName(cursor.getString(0));
                 image.setId(cursor.getInt(1));

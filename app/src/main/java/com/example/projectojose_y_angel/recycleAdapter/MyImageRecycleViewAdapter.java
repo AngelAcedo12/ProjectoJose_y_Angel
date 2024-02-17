@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.utils.Compresosr;
+import com.example.projectojose_y_angel.utils.CompresosrNoAsync;
+import com.squareup.picasso.Picasso;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -34,17 +37,16 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_image_layout,parent,false);
+
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Image image = lista.get(position);
-        try {
+
             holder.render(image);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
     }
     public void setCLickListener(ItemClickListener itemClickListener){
         this.mClickListener=itemClickListener;
@@ -56,6 +58,7 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
+        Compresosr compresosr = new Compresosr(ctx);
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,8 +67,11 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
 
         }
-        public void render(Image image) throws IOException {
-            this.imageView.setImageBitmap(new Compresosr(ctx).uriToCompressBitMapp(image.getUri()));
+        public void render(Image image) {
+
+        Picasso.with(ctx).load(image.getUri()).centerCrop().resize(400,400).into(imageView);
+
+
         }
 
         @Override
