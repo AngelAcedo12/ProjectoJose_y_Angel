@@ -24,6 +24,7 @@ public class PermisionActivity extends AppCompatActivity {
         if(checkPermission()){
             Intent intent = new Intent(this,GaleriaActivity.class);
             startActivity(intent);
+            finish();
         }
 
         btnPermision.setOnClickListener(e -> {

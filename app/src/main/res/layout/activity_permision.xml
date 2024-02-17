@@ -21,6 +21,7 @@
         app:srcCompat="@drawable/baseline_archive_24" />
 
     <Button
+        android:theme="@style/Theme.AppCompat.BotMenu"
         android:id="@+id/buttonRequestPermision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

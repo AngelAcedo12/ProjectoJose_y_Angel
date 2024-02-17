@@ -57,7 +57,10 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imageView=itemView.findViewById(R.id.imageGallery);
+            imageView.setPadding(2,2,2,2);
+            imageView.setBackgroundResource(R.drawable.borderfotos);
             itemView.setOnClickListener(this);
+
 
 
         }

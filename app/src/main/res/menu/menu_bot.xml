@@ -5,10 +5,10 @@
         android:id="@+id/myFotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Mis fotos" />
+        android:icon="@drawable/baseline_archive_24" />
     <item
         android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Compartidas" />
+        android:icon="@drawable/baseline_people_alt_24" />
 </menu>
