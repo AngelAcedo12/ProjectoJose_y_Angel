@@ -53,7 +53,6 @@ public class MyImageRecycleViewAdapter extends RecyclerView.Adapter<MyImageRecyc
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
-        Compresosr compresosr = new Compresosr(ctx);
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
