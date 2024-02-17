@@ -52,7 +52,7 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
             };
             Uri mediaQuery = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             Cursor cursor = context.getContentResolver().query(mediaQuery, props, null, null, null);
-            while (cursor.moveToNext() ) {
+            while (cursor.moveToNext() & count<200) {
                 Image image = new Image();
                 image.setVolumeName(cursor.getString(0));
                 image.setId(cursor.getInt(1));
@@ -60,7 +60,7 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),
                             MediaStore.Images.Media.getContentUri(image.getVolumeName(), image.getId()));
-                    image.setImage(bitmap);
+                   // image.setImage(bitmap);
                     if (bitmap.getWidth() > maxWidth || bitmap.getHeight() > maxHeight){
                         float ratio = Math.min((float) maxWidth / bitmap.getWidth(), (float) maxHeight / bitmap.getHeight());
                         int width = Math.round(ratio * bitmap.getWidth());

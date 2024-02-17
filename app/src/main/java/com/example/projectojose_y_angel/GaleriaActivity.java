@@ -21,6 +21,7 @@ public class GaleriaActivity extends AppCompatActivity implements MyImageRecycle
     RecyclerView galleryRecycleView;
     MyImageRecycleViewAdapter myImageRecycleViewAdapter;
     private int numeroColumnas=3;
+    boolean isLoader=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class GaleriaActivity extends AppCompatActivity implements MyImageRecycle
 
     @Override
     public void onTaskCompleded(boolean res) {
+        isLoader=true;
         List<Image> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
         myImageRecycleViewAdapter = new MyImageRecycleViewAdapter(imagenes);
         myImageRecycleViewAdapter.setCLickListener(this);
@@ -43,8 +45,10 @@ public class GaleriaActivity extends AppCompatActivity implements MyImageRecycle
     @Override
     protected void onStart() {
         super.onStart();
-        loaderImageInBackGround loader = new loaderImageInBackGround(this,GaleriaActivity.this);
-        loader.execute();
+        if (!isLoader){
+            loaderImageInBackGround loader = new loaderImageInBackGround(this,GaleriaActivity.this);
+            loader.execute();
+        }
     }
 
     @Override
