@@ -33,7 +33,6 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = ProgressDialog.show(context, context.getString(R.string.app_name), "Cargando", true);
-
     }
 
 

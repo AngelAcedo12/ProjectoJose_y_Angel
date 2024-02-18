@@ -21,6 +21,7 @@ public class PermisionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permision);
         btnPermision=findViewById(R.id.buttonRequestPermision);
+
         if(checkPermission()){
             Intent intent = new Intent(this,GaleriaActivity.class);
             startActivity(intent);
