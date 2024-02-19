@@ -12,12 +12,15 @@ import android.util.Log;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.utils.loaderImageInBackGround;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class RepositoryImageInSmartphone implements Repository {
 
-    private List<Image> images = new ArrayList<>();
+    private HashMap<LocalDate,List<Image>> images = new HashMap<>();
     private  static RepositoryImageInSmartphone repositoryImageInSmartphone = null;
 
     private RepositoryImageInSmartphone() {
@@ -30,22 +33,13 @@ public class RepositoryImageInSmartphone implements Repository {
         return  repositoryImageInSmartphone;
     }
 
-    @Override
-    public boolean load(Context context) {
 
-    return true ;
-
-    }
-
-    public List<Image> getImages() {
+    public HashMap<LocalDate,List<Image>> getImages() {
         return images;
     }
 
-    public void compress(){
 
-    }
-
-    public void setImages(List<Image> images) {
+    public void setImages(HashMap<LocalDate, List<Image>> images) {
         this.images = images;
     }
 }

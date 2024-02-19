@@ -2,6 +2,7 @@ package com.example.projectojose_y_angel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Rect;
@@ -19,13 +20,14 @@ import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
 import com.example.projectojose_y_angel.utils.loaderImageInBackGround;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public class GaleriaActivity extends AppCompatActivity implements MyImageRecycleViewAdapter.ItemClickListener,loaderImageInBackGround.TaskCompleted {
 
     RecyclerView galleryRecycleView;
     MyImageRecycleViewAdapter myImageRecycleViewAdapter;
-    private int numeroColumnas=3;
     boolean isLoader=false;
 
     //buttons menu
@@ -102,10 +104,10 @@ public class GaleriaActivity extends AppCompatActivity implements MyImageRecycle
     @Override
     public void onTaskCompleded(boolean res) {
         isLoader=true;
-        List<Image> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
+        HashMap<LocalDate,List<Image>> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
         myImageRecycleViewAdapter = new MyImageRecycleViewAdapter(imagenes,this);
         myImageRecycleViewAdapter.setCLickListener(this);
-        galleryRecycleView.setLayoutManager(new GridLayoutManager(this,numeroColumnas));
+        galleryRecycleView.setLayoutManager(new LinearLayoutManager(this));
         galleryRecycleView.setAdapter(myImageRecycleViewAdapter);
     }
 

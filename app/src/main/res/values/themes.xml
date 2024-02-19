@@ -20,6 +20,9 @@
         <item name="android:textColorPrimary">@color/black</item>
 
     </style>
+    <style name="Theme.AppCompat.FloatingBtn" parent="Base.Theme.ProjectoJose_y_Angel">
+        <item name="android:backgroundTint">@color/backGroundNight</item>
+    </style>
     <style name="Theme.ProjectoJose_y_Angel" parent="Base.Theme.ProjectoJose_y_Angel" />
 
 

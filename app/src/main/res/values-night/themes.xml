@@ -12,6 +12,9 @@
         <item name="tint">@color/white</item>
 
     </style>
+    <style name="Theme.AppCompat.FloatingBtn" parent="Base.Theme.ProjectoJose_y_Angel">
+        <item name="android:backgroundTint">@color/backGroundNight</item>
+    </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:backgroundTint">@color/backGroundNight</item>

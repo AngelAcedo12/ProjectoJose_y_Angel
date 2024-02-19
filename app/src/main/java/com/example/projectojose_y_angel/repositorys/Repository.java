@@ -4,6 +4,5 @@ import android.content.Context;
 
 public interface Repository {
 
-    public boolean load(Context context);
 
 }
