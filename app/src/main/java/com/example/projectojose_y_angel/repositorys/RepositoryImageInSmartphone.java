@@ -20,7 +20,7 @@ import java.util.List;
 
 public class RepositoryImageInSmartphone implements Repository {
 
-    private HashMap<LocalDate,List<Image>> images = new HashMap<>();
+    private List<Image> images = new ArrayList<>();
     private  static RepositoryImageInSmartphone repositoryImageInSmartphone = null;
 
     private RepositoryImageInSmartphone() {
@@ -34,12 +34,12 @@ public class RepositoryImageInSmartphone implements Repository {
     }
 
 
-    public HashMap<LocalDate,List<Image>> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
 
-    public void setImages(HashMap<LocalDate, List<Image>> images) {
+    public void setImages( List<Image> images) {
         this.images = images;
     }
 }

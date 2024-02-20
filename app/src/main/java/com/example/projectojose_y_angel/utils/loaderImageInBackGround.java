@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean> {
-    private HashMap<LocalDate,List<Image>> images = new HashMap<>();
+    private List<Image> images = new ArrayList<>();
     private final  Context context;
 
     private TaskCompleted taskCompleted;
@@ -55,9 +55,9 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
             String[] props = new String[]{
                     MediaStore.Images.Media.VOLUME_NAME,
                     MediaStore.Images.Media._ID,
-                    MediaStore.Images.Media.DATE_TAKEN,
+                    MediaStore.Images.Media.DATE_ADDED,
             };
-            String sortOrder = MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC";
+            String sortOrder = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
             Uri mediaQuery = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             Cursor cursor = context.getContentResolver().query(mediaQuery, props, null, null,sortOrder);
             LocalDate dateAnterior=null;
@@ -75,20 +75,11 @@ public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                 }
                 image.setDate(localDate);
 
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     image.setUri(MediaStore.Images.Media.getContentUri(image.getVolumeName(),image.getId()));
                 }
-                if (localDate.getYear() != 1970) {
-                    if (dateAnterior!=null && dateAnterior.equals(localDate)){
-                        list.add(image);
-                    }else {
-                        dateAnterior=localDate;
-                        images.put(localDate,list);
-                        list=new ArrayList<>();
-                    }
-                    count++;
-                }
+                images.add(image);
+                count++;
 
             }
             RepositoryImageInSmartphone.getInstance().setImages(images);

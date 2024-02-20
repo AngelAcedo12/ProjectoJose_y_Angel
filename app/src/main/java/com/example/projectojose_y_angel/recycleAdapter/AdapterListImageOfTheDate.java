@@ -13,6 +13,7 @@ import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
 import com.squareup.picasso.Picasso;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -56,13 +57,14 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
             this.imageView=itemView.findViewById(R.id.imageGallery);
             imageView.setPadding(2,2,2,2);
             imageView.setBackgroundResource(R.drawable.borderfotos);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             itemView.setOnClickListener(this);
 
 
         }
         public void render(Image image) {
 
-            Picasso.with(ctx).load(image.getUri()).centerCrop().resize(400,400).into(imageView);
+            Picasso.with(ctx).load(image.getUri()).centerCrop().resize(350,360).onlyScaleDown().into(imageView);
 
         }
 
