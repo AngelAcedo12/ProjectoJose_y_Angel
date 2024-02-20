@@ -64,7 +64,7 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
         }
         public void render(Image image) {
 
-            Picasso.with(ctx).load(image.getUri()).centerCrop().resize(350,360).onlyScaleDown().into(imageView);
+            Picasso.with(ctx).load(image.getUri()).centerCrop().resize(400,400).onlyScaleDown().into(imageView);
 
         }
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class RepositoryImageInSmartphone implements Repository {
+public class RepositoryImageInSmartphone implements RepositoryImageInSmarphone {
 
     private List<Image> images = new ArrayList<>();
     private  static RepositoryImageInSmartphone repositoryImageInSmartphone = null;

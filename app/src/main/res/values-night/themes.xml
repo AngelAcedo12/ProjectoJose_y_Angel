@@ -18,7 +18,7 @@
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:backgroundTint">@color/backGroundNight</item>
-
+        <item name="android:textColorPrimary">@color/white</item>
 
     </style>
     <style name="Theme.AppCompat.Icons" parent="Base.Theme.ProjectoJose_y_Angel">
