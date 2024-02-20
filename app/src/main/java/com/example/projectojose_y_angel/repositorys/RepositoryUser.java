@@ -9,7 +9,7 @@ public interface RepositoryUser{
 
     public Optional<User> findByName(String name);
     public Optional<User> findByEmail(String email);
-    public boolean create();
+    public boolean create(User user);
     public List<User> findAll();
     public  boolean deleteUserByName();
 }

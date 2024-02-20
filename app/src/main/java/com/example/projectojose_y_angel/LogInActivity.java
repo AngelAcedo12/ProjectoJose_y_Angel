@@ -35,7 +35,6 @@ public class LogInActivity extends AppCompatActivity {
 
         repositoryUser=new RepositoryUserImpLocal();
 
-
         buttonSingUp.setOnClickListener(e -> {
             Intent intent = new Intent(this,SingUpActivity.class);
             startActivity(intent);
@@ -46,8 +45,10 @@ public class LogInActivity extends AppCompatActivity {
             if (optionalUser.isPresent()){
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("email",optionalUser.get().getUser());
-                editor.commit();
+                editor.putString("email",optionalUser.get().getEmail());
+                editor.putString("username",optionalUser.get().getUser());
+                editor.putString("password",optionalUser.get().getPassword());
+                editor.apply();
                 Intent intent = new Intent(this,PermisionActivity.class);
                 startActivity(intent);
                 finish();

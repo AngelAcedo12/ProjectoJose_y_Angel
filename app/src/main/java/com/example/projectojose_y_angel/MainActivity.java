@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.repositorys.RepositoryUser;
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity  {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String email = sharedPreferences.getString("email",null);
         if (email!=null){
-
             Optional<User> optionalUser    = repositoryUser.findByEmail(email);
             if (optionalUser.isPresent()){
                 Intent intent = new Intent(this, PermisionActivity.class);

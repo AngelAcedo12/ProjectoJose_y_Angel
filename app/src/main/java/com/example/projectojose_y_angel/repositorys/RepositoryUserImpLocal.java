@@ -27,8 +27,10 @@ public class RepositoryUserImpLocal implements RepositoryUser{
     }
 
     @Override
-    public boolean create() {
-        return false;
+    public boolean create(User user) {
+
+        list.add(user);
+        return true;
     }
 
     @Override
