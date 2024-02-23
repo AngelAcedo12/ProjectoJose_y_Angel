@@ -11,7 +11,16 @@ public class Image {
     private int id;
     private Uri uri;
     public LocalDate date;
+    public boolean cheked=false;
     public Image() {
+    }
+
+    public boolean isCheked() {
+        return cheked;
+    }
+
+    public void setCheked(boolean cheked) {
+        this.cheked = cheked;
     }
 
     public Uri getUri() {

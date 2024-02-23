@@ -3,7 +3,6 @@
     <style name="Base.Theme.ProjectoJose_y_Angel" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/black</item>
         <item name="colorAccent">@color/black</item>
-        <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
@@ -20,8 +19,12 @@
         <item name="android:textColorPrimary">@color/black</item>
 
     </style>
+
+    <style name="Theme.AppCompat.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="buttonIconTint">@color/backGroundLight</item>
+    </style>
     <style name="Theme.AppCompat.FloatingBtn" parent="Base.Theme.ProjectoJose_y_Angel">
-        <item name="android:backgroundTint">@color/backGroundNight</item>
+        <item name="android:backgroundTint">@color/backGroundLight</item>
     </style>
     <style name="Theme.ProjectoJose_y_Angel" parent="Base.Theme.ProjectoJose_y_Angel" />
 

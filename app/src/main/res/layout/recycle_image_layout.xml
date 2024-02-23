@@ -6,9 +6,34 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageGallery"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageGallery"
+            android:layout_width="143dp"
+            android:layout_height="145dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="65dp"
+            android:layout_height="47dp"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:bufferType="normal"
+            android:button="@drawable/baseline_check_circle_24"
+            android:clickable="false"
+            android:theme="@style/Theme.AppCompat.CheckBox"
+            android:visibility="invisible"
+            app:buttonIcon="@drawable/baseline_check_circle_24"
+            app:buttonIconTint="@color/backGroundLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
