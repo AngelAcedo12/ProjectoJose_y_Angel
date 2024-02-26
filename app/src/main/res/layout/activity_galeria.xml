@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".GaleriaActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_upload_24"
+        android:theme="@style/Theme.AppCompat.FloatingBtn"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mainFloatingButton" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/galleryRecycleView"
         android:layout_width="match_parent"
@@ -23,10 +36,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 

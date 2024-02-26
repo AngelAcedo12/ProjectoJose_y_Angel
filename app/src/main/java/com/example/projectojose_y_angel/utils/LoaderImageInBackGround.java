@@ -3,36 +3,30 @@ package com.example.projectojose_y_angel.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.icu.text.UFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
 
-import java.io.ByteArrayOutputStream;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-public class loaderImageInBackGround extends AsyncTask<Object, Integer, Boolean> {
+public class LoaderImageInBackGround extends AsyncTask<Object, Integer, Boolean> {
     private List<Image> images = new ArrayList<>();
     private final  Context context;
 
     private TaskCompleted taskCompleted;
     private ProgressDialog progressDialog;
 
-    public loaderImageInBackGround(Context context, TaskCompleted taskCompleted) {
+    public LoaderImageInBackGround(Context context, TaskCompleted taskCompleted) {
         this.context = context;
         this.taskCompleted = taskCompleted;
     }

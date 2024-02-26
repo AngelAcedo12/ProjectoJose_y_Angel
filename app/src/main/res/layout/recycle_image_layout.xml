@@ -8,12 +8,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTintMode="src_in"
+        android:clipToPadding="true"
+        android:minWidth="145dp"
+        android:minHeight="145dp"
+        android:padding="1dp">
 
         <ImageView
             android:id="@+id/imageGallery"
-            android:layout_width="143dp"
-            android:layout_height="145dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

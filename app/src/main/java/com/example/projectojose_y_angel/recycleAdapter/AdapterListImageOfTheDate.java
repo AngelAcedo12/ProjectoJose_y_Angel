@@ -46,12 +46,15 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
     public void setCLickListener(AdapterListImageOfTheDate.ItemClickListener itemClickListener){
         this.mClickListener=itemClickListener;
     }
+
     @Override
     public void onBindViewHolder(@NonNull AdapterListImageOfTheDate.MyViewHolder holder, int position) {
         holder.render(lista.get(position));
     }
 
-
+    public int getImgActived(){
+        return  imgActived;
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         ImageView imageView;
         CheckBox checkBox;
@@ -61,7 +64,6 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
             this.imageView=itemView.findViewById(R.id.imageGallery);
             this.checkBox=itemView.findViewById(R.id.checkBox);
             imageView.setPadding(2,2,2,2);
-            imageView.setBackgroundResource(R.drawable.borderfotos);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
@@ -82,8 +84,8 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
         @Override
         public boolean onLongClick(View view) {
-
             chainSelectedVisibiliteToCheckBox(getAdapterPosition());
+            Toast.makeText(ctx, String.valueOf(imgActived), Toast.LENGTH_SHORT).show();
             if(mClickListener!=null)
                 mClickListener.onItemClick(view,getAdapterPosition());
 
@@ -114,7 +116,6 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
     public interface ItemClickListener{
         void onItemClick(View activista, int position);
     }
-
 
     @Override
     public int getItemCount() {

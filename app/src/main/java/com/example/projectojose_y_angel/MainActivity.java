@@ -1,5 +1,6 @@
 package com.example.projectojose_y_angel;
 
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity  {
                 finish();
             }
         }
+
 
 
     }
