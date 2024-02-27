@@ -12,11 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectojose_y_angel.R;
+import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
 import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,13 +29,18 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
    List<Image> lista;
    private  int imgActived=0;
     private AdapterListImageOfTheDate.ItemClickListener mClickListener;
+    private List<Image> selectedList;
 
     public AdapterListImageOfTheDate( List<Image> lista, Context context) {
         super();
         this.lista=lista;
         this.ctx=context;
+        selectedList=new ArrayList<>();
     }
 
+    public List<Image> getSelectedList(){
+        return  selectedList;
+    }
     @NonNull
     @Override
     public AdapterListImageOfTheDate.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -94,11 +101,15 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
         private void chainSelectedVisibiliteToCheckBox(int position) {
 
             if(checkBox.getVisibility()== View.INVISIBLE && imgActived<=10){
+                Image image = lista.get(position);
+                selectedList.add(image);
                 lista.get(position).setCheked(true);
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked(true);
                 imgActived++;
             }else if(checkBox.getVisibility()==View.VISIBLE){
+                Image image = lista.get(position);
+                selectedList.remove(image);
                 lista.get(position).setCheked(false);
                 checkBox.setVisibility(View.INVISIBLE);
                 checkBox.setChecked(false);

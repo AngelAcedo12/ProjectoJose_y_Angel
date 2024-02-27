@@ -16,17 +16,21 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.recycleAdapter.AdapterListImageOfTheDate;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
 import com.example.projectojose_y_angel.utils.LoaderImageInBackGround;
+import com.example.projectojose_y_angel.utils.Mappeds.MapListImgToListDtoUserImg;
+import com.example.projectojose_y_angel.utils.SaveImgForUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.util.List;
 
 public class GaleriaActivity extends AppCompatActivity implements AdapterListImageOfTheDate.ItemClickListener
-        , LoaderImageInBackGround.TaskCompleted {
+        , LoaderImageInBackGround.TaskCompleted, SaveImgForUser.TaskCompletedUpImg {
 
     RecyclerView galleryRecycleView;
     AdapterListImageOfTheDate myImageRecycleViewAdapter;
@@ -37,7 +41,6 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     private FloatingActionButton mainMenuFloatingButton;
     private FloatingActionButton galleryButton;
     private FloatingActionButton cloudButton;
-    private View transparentBackgroundView;
     private boolean isExpanded = false;
 
     @Override
@@ -54,11 +57,19 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         floatingUp.setOnClickListener(e -> {
             SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
             String username = pref.getString("username",null);
-            String email = pref.getString("email",null);
-            String password = pref.getString("password",null);
-            User user = new User(username,email,password);
-            
-            Toast.makeText(this, username + " " +email+ " "+ password , Toast.LENGTH_SHORT).show();
+            username="Rangel";
+            try {
+                List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
+                SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
+                saveImgForUser.execute();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+            //¿ ESTAS BIEN REY ?
+            Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
+
         });
 
     }
@@ -67,7 +78,6 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         this.mainMenuFloatingButton = findViewById(R.id.mainFloatingButton);
         this.galleryButton = findViewById(R.id.galleryButton);
         this.cloudButton = findViewById(R.id.cloudButton);
-        this.transparentBackgroundView = findViewById(R.id.transparentBg);
         this.floatingUp = findViewById(R.id.floatingUp);
     }
 
@@ -151,4 +161,8 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     }
 
 
+    @Override
+    public void onTaskComplededUpImg(boolean res) {
+        Toast.makeText(this, "Imagenes subidas", Toast.LENGTH_SHORT).show();
+    }
 }
