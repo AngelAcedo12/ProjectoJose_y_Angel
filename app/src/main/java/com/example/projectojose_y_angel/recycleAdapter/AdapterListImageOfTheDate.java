@@ -85,7 +85,6 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
         @Override
         public boolean onLongClick(View view) {
             chainSelectedVisibiliteToCheckBox(getAdapterPosition());
-            Toast.makeText(ctx, String.valueOf(imgActived), Toast.LENGTH_SHORT).show();
             if(mClickListener!=null)
                 mClickListener.onItemClick(view,getAdapterPosition());
 

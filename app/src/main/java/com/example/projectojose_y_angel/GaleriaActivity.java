@@ -27,15 +27,15 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     RecyclerView galleryRecycleView;
     AdapterListImageOfTheDate myImageRecycleViewAdapter;
-    boolean isLoader=false;
-    boolean floatingUpIsVisile=false;
+    boolean isLoader = false;
+    boolean floatingUpIsVisile = false;
     //buttons menu
     private FloatingActionButton floatingUp;
     private FloatingActionButton mainMenuFloatingButton;
     private FloatingActionButton galleryButton;
     private FloatingActionButton cloudButton;
     private View transparentBackgroundView;
-    private boolean isExpanded=false;
+    private boolean isExpanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,84 +46,54 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         asignarElementosMenuFlotante();
         asignarComportamientoMenuFlotante();
 
-        GaleriaActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    Log.i("imgActives",String.valueOf(myImageRecycleViewAdapter.getImgActived()));
-                    if (!floatingUpIsVisile) {
-                        if (myImageRecycleViewAdapter.getImgActived() > 0) {
-                            floatingUpIsVisile = true;
-                            floatingUp.setVisibility(View.VISIBLE);
-                        } else {
-                            floatingUp.setVisibility(View.INVISIBLE);
-                            floatingUpIsVisile = false;
-                        }
-                    }
-                }catch (Exception err){
-                    err.printStackTrace();
-                }
-                new Handler().postDelayed(this,10);
-            }
-        });
 
     }
 
-    public void asignarElementosMenuFlotante(){
-        this.mainMenuFloatingButton=findViewById(R.id.mainFloatingButton);
-        this.galleryButton=findViewById(R.id.galleryButton);
-        this.cloudButton=findViewById(R.id.cloudButton);
+    public void asignarElementosMenuFlotante() {
+        this.mainMenuFloatingButton = findViewById(R.id.mainFloatingButton);
+        this.galleryButton = findViewById(R.id.galleryButton);
+        this.cloudButton = findViewById(R.id.cloudButton);
         this.transparentBackgroundView = findViewById(R.id.transparentBg);
-        this.floatingUp=findViewById(R.id.floatingUp);
+        this.floatingUp = findViewById(R.id.floatingUp);
     }
 
-    public void asignarComportamientoMenuFlotante(){
+    public void asignarComportamientoMenuFlotante() {
         mainMenuFloatingButton.setOnClickListener(v -> {
-            if(isExpanded){
+            if (isExpanded) {
                 contraerMenu();
-            }else{
+            } else {
                 expandirMenu();
             }
         });
 
     }
-    private void mostrarFloatingup(){
-        Animation fadeIn=null;
-        if (floatingUpIsVisile){
-            fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in);
-        }else {
 
-        }
+    private void contraerMenu() {
+        isExpanded = !isExpanded;
+        Animation rotate_anti_clock_wise = AnimationUtils.loadAnimation(this, R.anim.rotate_anti_clock_wise);
+        Animation to_bottom_fab = AnimationUtils.loadAnimation(this, R.anim.to_bottom_fab);
 
-        floatingUp.startAnimation(fadeIn);
-    }
-    private void contraerMenu(){
-        isExpanded=!isExpanded;
-        Animation to_bottom_anim_bg=AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim);
-        Animation rotate_anti_clock_wise=AnimationUtils.loadAnimation(this,R.anim.rotate_anti_clock_wise);
-        Animation to_bottom_fab=AnimationUtils.loadAnimation(this,R.anim.to_bottom_fab);
-
-
-        transparentBackgroundView.startAnimation(to_bottom_anim_bg);
 
         mainMenuFloatingButton.startAnimation(rotate_anti_clock_wise);
-
         galleryButton.startAnimation(to_bottom_fab);
         cloudButton.startAnimation(to_bottom_fab);
-
-
+        if (myImageRecycleViewAdapter.getImgActived() > 0) {
+            floatingUp.startAnimation(to_bottom_fab);
+        }
 
     }
-    private void expandirMenu(){
-        isExpanded=!isExpanded;
-        Animation from_bottom_anim_bg=AnimationUtils.loadAnimation(this,R.anim.from_bottom_anim);
-        Animation rotate_clock_wise=AnimationUtils.loadAnimation(this,R.anim.rotate_clock_wise);
-        Animation from_bottom_fab=AnimationUtils.loadAnimation(this,R.anim.from_bottom_fab);
 
-        transparentBackgroundView.startAnimation(from_bottom_anim_bg);
+    private void expandirMenu() {
+        isExpanded = !isExpanded;
+        Animation rotate_clock_wise = AnimationUtils.loadAnimation(this, R.anim.rotate_clock_wise);
+        Animation from_bottom_fab = AnimationUtils.loadAnimation(this, R.anim.from_bottom_fab);
+
         mainMenuFloatingButton.startAnimation(rotate_clock_wise);
         galleryButton.startAnimation(from_bottom_fab);
         cloudButton.startAnimation(from_bottom_fab);
+        if (myImageRecycleViewAdapter.getImgActived() > 0) {
+            floatingUp.startAnimation(from_bottom_fab);
+        }
 
 
     }
@@ -131,19 +101,19 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     @Override
     public void onTaskCompleded(boolean res) {
-        isLoader=true;
-        List<Image> imagenes=RepositoryImageInSmartphone.getInstance().getImages();
-        myImageRecycleViewAdapter = new AdapterListImageOfTheDate(imagenes,this);
-        myImageRecycleViewAdapter.setCLickListener( this);
-        galleryRecycleView.setLayoutManager(new GridLayoutManager(this,3));
+        isLoader = true;
+        List<Image> imagenes = RepositoryImageInSmartphone.getInstance().getImages();
+        myImageRecycleViewAdapter = new AdapterListImageOfTheDate(imagenes, this);
+        myImageRecycleViewAdapter.setCLickListener(this);
+        galleryRecycleView.setLayoutManager(new GridLayoutManager(this, 3));
         galleryRecycleView.setAdapter(myImageRecycleViewAdapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!isLoader){
-            LoaderImageInBackGround loader = new LoaderImageInBackGround(this,GaleriaActivity.this);
+        if (!isLoader) {
+            LoaderImageInBackGround loader = new LoaderImageInBackGround(this, GaleriaActivity.this);
             loader.execute();
         }
     }
@@ -159,7 +129,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             Rect outrect = new Rect();
             mainMenuFloatingButton.getGlobalVisibleRect(outrect);
             //Y pulso en cualquier lugar que no sea el mainMenu
-            if( !outrect.contains(Math.round(ev.getRawX()),Math.round(ev.getRawY())) ){
+            if (!outrect.contains(Math.round(ev.getRawX()), Math.round(ev.getRawY()))) {
                 contraerMenu();
             }
         }
