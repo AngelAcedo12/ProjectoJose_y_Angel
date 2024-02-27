@@ -60,7 +60,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             username="Rangel";
             try {
                 List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
-                SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs);
+                SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
                 saveImgForUser.execute();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -163,6 +163,6 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     @Override
     public void onTaskComplededUpImg(boolean res) {
-        Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Imagenes subidas", Toast.LENGTH_SHORT).show();
     }
 }
