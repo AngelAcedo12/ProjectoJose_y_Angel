@@ -11,14 +11,15 @@
         android:id="@+id/floatingUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:src="@drawable/baseline_upload_24"
         android:theme="@style/Theme.AppCompat.FloatingBtn"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/mainFloatingButton" />
+        app:layout_constraintBottom_toTopOf="@+id/cloudButton"
+        app:layout_constraintEnd_toEndOf="@+id/cloudButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cloudButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/galleryRecycleView"
