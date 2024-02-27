@@ -50,13 +50,13 @@ public class SaveImgForUser extends AsyncTask<DtoUserImg,Integer,Boolean> {
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 byte[] bytes = new MapBitmapToByteArray().map(dtoUserImg.getBitmap());
-                String imagenString=Base64.encodeToString(bytes,Base64.);
+                String imagenString=Base64.encodeToString(bytes,Base64.DEFAULT);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(URLEncoder.encode("user","UTF-8"));
                 stringBuilder.append("=");
                 stringBuilder.append(URLEncoder.encode(dtoUserImg.getUser(),"UTF-8"));
                 stringBuilder.append("&");
-                stringBuilder.append(URLEncoder.encode("imagen","UTF-8"));
+                stringBuilder.append(URLEncoder.encode("image","UTF-8"));
                 stringBuilder.append("=");
                 stringBuilder.append(URLEncoder.encode( imagenString,"UTF-8"));
 
