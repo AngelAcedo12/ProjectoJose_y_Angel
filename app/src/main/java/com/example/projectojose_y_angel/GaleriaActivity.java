@@ -57,14 +57,16 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         floatingUp.setOnClickListener(e -> {
             SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
             String username = pref.getString("username",null);
-            username="Rangel";
-            try {
-                List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
-                SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
-                saveImgForUser.execute();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+            if (myImageRecycleViewAdapter.getImgActived()>0){
+                try {
+                    List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
+                    SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
+                    saveImgForUser.execute();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+
 
 
             //¿ ESTAS BIEN REY ?

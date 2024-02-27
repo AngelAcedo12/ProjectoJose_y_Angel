@@ -12,14 +12,16 @@ import android.widget.Toast;
 import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.repositorys.RepositoryUser;
 import com.example.projectojose_y_angel.repositorys.RepositoryUserImpLocal;
+import com.example.projectojose_y_angel.services.User.InsertarUsuario;
 
-public class SingUpActivity extends AppCompatActivity {
+public class SingUpActivity extends AppCompatActivity implements InsertarUsuario.TaskCompleteRegisterUser {
 
     EditText editEmail;
     EditText editUsername;
     EditText editPassword;
     Button buttonLogIN;
     Button buttonRegister;
+    User user =null;
     RepositoryUser repositoryUser = new RepositoryUserImpLocal();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +40,9 @@ public class SingUpActivity extends AppCompatActivity {
             String username = editUsername.getText().toString();
             String email = editEmail.getText().toString();
             String password = editPassword.getText().toString();
-            User user = new User(username,email,password);
-            if(repositoryUser.create(user)){
-                Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
-                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-
-                editor.putString("email",user.getEmail());
-                editor.putString("username",user.getUser());
-                editor.putString("password",user.getPassword());
-                editor.apply();
-                Intent intent = new Intent(this,PermisionActivity.class);
-                startActivity(intent);
-                finish();
-            }
+             user = new User(username,email,password);
+            InsertarUsuario insertarUsuario = new InsertarUsuario(this,this);
+            insertarUsuario.execute(user);
         });
 
         buttonLogIN.setOnClickListener(e -> {
@@ -61,5 +52,24 @@ public class SingUpActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public void TaskCompleteRegisterUser(boolean estate) {
+        if (estate){
+
+                Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
+                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("email",user.getEmail());
+                editor.putString("username",user.getUser());
+                editor.putString("password",user.getPassword());
+                editor.apply();
+                Intent intent = new Intent(this,PermisionActivity.class);
+                startActivity(intent);
+                finish();
+
+        }
     }
 }
