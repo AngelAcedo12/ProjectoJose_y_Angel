@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.projectojose_y_angel.models.Image;
+import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.recycleAdapter.AdapterListImageOfTheDate;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
 import com.example.projectojose_y_angel.utils.LoaderImageInBackGround;
@@ -46,6 +49,17 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         asignarElementosMenuFlotante();
         asignarComportamientoMenuFlotante();
 
+
+
+        floatingUp.setOnClickListener(e -> {
+            SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+            String username = pref.getString("username",null);
+            String email = pref.getString("email",null);
+            String password = pref.getString("password",null);
+            User user = new User(username,email,password);
+            
+            Toast.makeText(this, username + " " +email+ " "+ password , Toast.LENGTH_SHORT).show();
+        });
 
     }
 
