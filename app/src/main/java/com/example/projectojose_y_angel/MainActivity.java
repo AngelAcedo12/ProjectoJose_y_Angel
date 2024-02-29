@@ -49,12 +49,16 @@ public class MainActivity extends AppCompatActivity  {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String email = sharedPreferences.getString("email",null);
         if (email!=null){
+
             Optional<User> optionalUser  = repositoryUser.findByEmail(email);
             if (optionalUser.isPresent()){
                 Intent intent = new Intent(this, PermisionActivity.class);
                 startActivity(intent);
                 finish();
             }
+        }else {
+
+            Toast.makeText(this, "Soy nulo", Toast.LENGTH_SHORT).show();
         }
 
 

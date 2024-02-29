@@ -37,9 +37,18 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
 
 
         buttonRegister.setOnClickListener(e -> {
+
+
+            String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
+
+
+
             String username = editUsername.getText().toString();
             String email = editEmail.getText().toString();
             String password = editPassword.getText().toString();
+
+
+
              user = new User(username,email,password);
             InsertarUsuario insertarUsuario = new InsertarUsuario(this,this);
             insertarUsuario.execute(user);
@@ -62,10 +71,13 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
                 Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
+            Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
                 editor.putString("email",user.getEmail());
                 editor.putString("username",user.getUser());
                 editor.putString("password",user.getPassword());
-                editor.apply();
+                if(editor.commit()){
+                    editor.apply();
+                };
                 Intent intent = new Intent(this,PermisionActivity.class);
                 startActivity(intent);
                 finish();
@@ -73,5 +85,12 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
         }else{
             Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
         }
+    }
+    public  boolean validarPassword(String password) {
+        // Expresión regular que verifica todos los criterios
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
+
+        // Verificar si la contraseña coincide con la expresión regular
+        return password.matches(regex);
     }
 }
