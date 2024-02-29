@@ -70,6 +70,8 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
                 startActivity(intent);
                 finish();
 
+        }else{
+            Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -72,8 +72,16 @@ public class InsertarUsuario extends AsyncTask<User, Void, Boolean> {
             outputStream.write(stringBuilder.toString().getBytes());
             outputStream.flush();
             outputStream.close();
+            int estatus = clientHttp.getResponseCode();
             clientHttp.disconnect();
-            response=true;
+
+            Log.i("responseSaved",String.valueOf(estatus));
+            if(estatus!=200){
+                response=false;
+            }else {
+                response=true;
+            }
+
 
         }catch (Exception ex){
            ex.printStackTrace();
@@ -85,6 +93,7 @@ public class InsertarUsuario extends AsyncTask<User, Void, Boolean> {
     protected void onPostExecute(Boolean res) {
         super.onPostExecute(res);
         progressDialog.dismiss();
+        Log.i("responseSaved",String.valueOf(res));
         taskCompleteRegisterUser.TaskCompleteRegisterUser(res);
     }
 
