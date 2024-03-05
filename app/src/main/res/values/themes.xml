@@ -29,6 +29,9 @@
     </style>
     <style name="Theme.ProjectoJose_y_Angel" parent="Base.Theme.ProjectoJose_y_Angel" />
 
-
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:drawableTint">@color/gray</item>
+    </style>
 
 </resources>

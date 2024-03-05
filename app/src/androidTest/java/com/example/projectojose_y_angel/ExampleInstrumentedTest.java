@@ -29,9 +29,6 @@ public class ExampleInstrumentedTest {
                 "&"+"password="+"123"+
                 "&"+"email="+"jose@gmail.com";
 
-        InsertarUsuario insertarUsuario = new InsertarUsuario();
-        insertarUsuario.execute(dato);
-        Thread.sleep(1000);
 
 
     }
