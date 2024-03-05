@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.Image;
@@ -50,6 +51,7 @@ public class LoaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                     MediaStore.Images.Media.VOLUME_NAME,
                     MediaStore.Images.Media._ID,
                     MediaStore.Images.Media.DATE_ADDED,
+
             };
             String sortOrder = MediaStore.Images.ImageColumns.DATE_ADDED + " DESC";
             Uri mediaQuery = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -72,6 +74,7 @@ public class LoaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     image.setUri(MediaStore.Images.Media.getContentUri(image.getVolumeName(),image.getId()));
                 }
+                Log.i("Img",String.valueOf(image.getId()));
                 images.add(image);
                 count++;
 

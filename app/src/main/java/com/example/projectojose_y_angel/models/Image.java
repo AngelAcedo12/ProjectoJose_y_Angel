@@ -10,6 +10,8 @@ public class Image {
     private String volumeName;
     private int id;
     private Uri uri;
+    private Bitmap bitmap;
+
     public LocalDate date;
     public boolean cheked=false;
     public Image() {

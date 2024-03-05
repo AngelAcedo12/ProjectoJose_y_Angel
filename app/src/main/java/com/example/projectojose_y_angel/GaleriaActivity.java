@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -76,6 +77,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     }
 
+
     public void asignarElementosMenuFlotante() {
         this.mainMenuFloatingButton = findViewById(R.id.mainFloatingButton);
         this.galleryButton = findViewById(R.id.galleryButton);
@@ -144,9 +146,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         }
     }
 
-    @Override
-    public void onItemClick(View activista, int position) {
-    }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -166,5 +166,25 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     @Override
     public void onTaskComplededUpImg(boolean res) {
         Toast.makeText(this, "Imagenes subidas", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLongItemClick(View activista, int position) {
+
+    }
+
+    @Override
+    public void onItemClik(View activista, int position) {
+        Log.i("Click",String.valueOf(myImageRecycleViewAdapter.getImgActived()));
+        if (myImageRecycleViewAdapter.getImgActived()==0){
+            Intent intent = new Intent(this,FotoView.class);
+            Image image=   myImageRecycleViewAdapter.getListImage().get(position);
+
+            intent.putExtra("volumeName",image.getVolumeName());
+            intent.putExtra("id",image.getId());
+            intent.putExtra("uri",image.getUri());
+            startActivity(intent);
+
+        }
     }
 }

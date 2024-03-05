@@ -1,6 +1,7 @@
 package com.example.projectojose_y_angel.recycleAdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectojose_y_angel.FotoView;
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
@@ -48,11 +50,14 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
         return new AdapterListImageOfTheDate.MyViewHolder(view);
     }
-
+    public  List<Image> getListImage(){
+        return lista;
+    }
 
     public void setCLickListener(AdapterListImageOfTheDate.ItemClickListener itemClickListener){
         this.mClickListener=itemClickListener;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull AdapterListImageOfTheDate.MyViewHolder holder, int position) {
@@ -93,7 +98,7 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
         public boolean onLongClick(View view) {
             chainSelectedVisibiliteToCheckBox(getAdapterPosition());
             if(mClickListener!=null)
-                mClickListener.onItemClick(view,getAdapterPosition());
+                mClickListener.onLongItemClick(view,getAdapterPosition());
 
             return  true;
         }
@@ -119,12 +124,18 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
         @Override
         public void onClick(View view) {
-            if (imgActived>0)
+            if (mClickListener!=null){
+                mClickListener.onItemClik(view,getAdapterPosition());
+            }
+            if (imgActived>0){
+
                 chainSelectedVisibiliteToCheckBox(getAdapterPosition());
+            }
         }
     }
     public interface ItemClickListener{
-        void onItemClick(View activista, int position);
+        void onLongItemClick(View activista, int position);
+        void onItemClik(View activista, int position);
     }
 
     @Override

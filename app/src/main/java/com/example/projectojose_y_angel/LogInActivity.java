@@ -13,26 +13,27 @@ import android.widget.Toast;
 import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.repositorys.RepositoryUser;
 import com.example.projectojose_y_angel.repositorys.RepositoryUserImpLocal;
+import com.example.projectojose_y_angel.utils.GetUserByName;
 
 import java.util.Optional;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements GetUserByName.TaskCompleteLogin {
 
-    EditText editEmail;
+    EditText editUsername;
     EditText editPassword;
     Button buttonSingUp;
     Button buttonLogIn;
+    User user = new User();
     RepositoryUser repositoryUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        editEmail =findViewById(R.id.editTextTextEmailAddress);
+        editUsername =findViewById(R.id.editTextTextEmailAddress);
         editPassword=findViewById(R.id.editTextTextPassword);
+        buttonLogIn=findViewById(R.id.btnLogIn2);
         buttonSingUp=findViewById(R.id.buttonSingUp2);
-        buttonLogIn=findViewById(R.id.buttonLogIn2);
-
         repositoryUser=new RepositoryUserImpLocal();
 
         buttonSingUp.setOnClickListener(e -> {
@@ -41,22 +42,40 @@ public class LogInActivity extends AppCompatActivity {
             finish();
         });
         buttonLogIn.setOnClickListener(e -> {
-            Optional<User> optionalUser = repositoryUser.findByEmail(editEmail.getText().toString());
-            if (optionalUser.isPresent()){
-                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("email",optionalUser.get().getEmail());
-                editor.putString("username",optionalUser.get().getUser());
-                editor.putString("password",optionalUser.get().getPassword());
-                editor.apply();
-                Intent intent = new Intent(this,PermisionActivity.class);
-                startActivity(intent);
-                finish();
-            }else{
-                Toast.makeText(this, "Este usuario no existe o la contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-            }
+
+
+            user.setName(editUsername.getText().toString());
+            user.setPassword(editPassword.getText().toString());
+            GetUserByName getUserByName = new GetUserByName(this,this);
+            getUserByName.execute(user);
 
         });
     }
 
+    @Override
+    public void onTaskCompleteLogin(Optional<User> optionalUser) {
+     if (!optionalUser.isPresent()){
+         Toast.makeText(this, "Este usuario no existe", Toast.LENGTH_SHORT).show();
+         editPassword.setText("");
+         editUsername.setText("");
+     }else{
+         User userGet = optionalUser.get();
+            if (userGet.getPassword().equals(user.getPassword())){
+                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("email",user.getEmail());
+                editor.putString("username",user.getUser());
+                editor.putString("password",user.getPassword());
+                if(editor.commit()){
+                    editor.apply();
+                };
+                Intent intent = new Intent(this,PermisionActivity.class);
+                startActivity(intent);
+                finish();
+            }
+     }
+
+
+
+    }
 }

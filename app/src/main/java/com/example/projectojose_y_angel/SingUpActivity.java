@@ -71,7 +71,6 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
                 Toast.makeText(this, "Registrado", Toast.LENGTH_SHORT).show();
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-            Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
                 editor.putString("email",user.getEmail());
                 editor.putString("username",user.getUser());
                 editor.putString("password",user.getPassword());
