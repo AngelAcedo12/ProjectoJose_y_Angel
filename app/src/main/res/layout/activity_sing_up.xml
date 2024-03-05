@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SingUpActivity">
 
-    <EditText
-        android:id="@+id/editTextTextPasswordSingUp"
-        style="@style/EditTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="15dp"
-        android:drawableStart="@drawable/key"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddressSingUp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddressSingUp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddressSingUp" />
-
     <Button
         android:id="@+id/buttonLogInRedirect"
         android:layout_width="wrap_content"
@@ -42,66 +26,27 @@
         android:id="@+id/buttonSinUpConfirmer"
         android:layout_width="192dp"
         android:layout_height="68dp"
-        android:layout_marginStart="147dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginTop="30dp"
         android:text="Registrase"
         android:textColor="@color/black"
         android:theme="@style/ButtonStyle"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogInRedirect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPasswordSingUp" />
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="176dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="101dp"
         android:text="Registrarse"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <EditText
-        android:id="@+id/editTextTextUsernameSingUp"
-        style="@style/EditTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="30dp"
-        android:drawableStart="@drawable/user"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.818"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddressSingUp"
-        style="@style/EditTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="15dp"
-        android:drawableStart="@drawable/mail"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextUsernameSingUp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextUsernameSingUp"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextUsernameSingUp" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -112,4 +57,51 @@
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <EditText
+            android:id="@+id/editTextTextUsernameSingUp"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_edit_text"
+            android:drawableStart="@drawable/user"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textEmailAddress" />
+
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddressSingUp"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_edit_text"
+            android:drawableStart="@drawable/mail"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editTextTextPasswordSingUp"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_edit_text"
+            android:drawableStart="@drawable/key"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
