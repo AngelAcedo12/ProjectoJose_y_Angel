@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,11 +18,8 @@ import android.widget.Toast;
 
 import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
-import com.example.projectojose_y_angel.models.User;
-import com.example.projectojose_y_angel.recycleAdapter.AdapterImageForClud;
 import com.example.projectojose_y_angel.recycleAdapter.AdapterListImageOfTheDate;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
-import com.example.projectojose_y_angel.utils.LoadAlllImageInCloud;
 import com.example.projectojose_y_angel.utils.LoaderImageInBackGround;
 import com.example.projectojose_y_angel.utils.Mappeds.MapListImgToListDtoUserImg;
 import com.example.projectojose_y_angel.utils.SaveImgForUser;
@@ -38,11 +34,9 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     RecyclerView galleryRecycleView;
     AdapterListImageOfTheDate myImageRecycleViewAdapter;
     boolean isLoader = false;
-    boolean floatingUpIsVisile = false;
     //buttons menu
     private FloatingActionButton floatingUp;
     private FloatingActionButton mainMenuFloatingButton;
-    private FloatingActionButton galleryButton;
     private FloatingActionButton cloudButton;
     private  FloatingActionButton exitButton;
     private boolean isExpanded = false;
@@ -57,6 +51,20 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         asignarComportamientoMenuFlotante();
 
 
+        asignarComportamientoSalir();
+        asignarComportamientoCloudButton();
+
+        cloudButton.setOnClickListener(e->{
+            if(!isExpanded){
+                Intent intent = new Intent(this,PruebaRecyler.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+    public void asignarComportamientoSalir(){
         exitButton.setOnClickListener(e ->{
             if(exitButton.getVisibility()==View.VISIBLE){
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
@@ -69,7 +77,9 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             }
 
         });
+    }
 
+    public void asignarComportamientoCloudButton(){
         floatingUp.setOnClickListener(e -> {
             SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
             String username = pref.getString("username",null);
@@ -84,19 +94,15 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
                 }
             }
 
-
-
             //¿ ESTAS BIEN REY ?
             Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
 
         });
-
     }
 
 
     public void asignarElementosMenuFlotante() {
         this.mainMenuFloatingButton = findViewById(R.id.mainFloatingButton);
-        this.galleryButton = findViewById(R.id.galleryButton);
         this.cloudButton = findViewById(R.id.cloudButton);
         this.floatingUp = findViewById(R.id.floatingUp);
         this.exitButton=findViewById(R.id.exitButton);
@@ -120,7 +126,6 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
 
         mainMenuFloatingButton.startAnimation(rotate_anti_clock_wise);
-        galleryButton.startAnimation(to_bottom_fab);
         cloudButton.startAnimation(to_bottom_fab);
         exitButton.startAnimation(to_bottom_fab);
         if (myImageRecycleViewAdapter.getImgActived() > 0) {
@@ -135,16 +140,11 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         Animation from_bottom_fab = AnimationUtils.loadAnimation(this, R.anim.from_bottom_fab);
 
         mainMenuFloatingButton.startAnimation(rotate_clock_wise);
-        galleryButton.startAnimation(from_bottom_fab);
         cloudButton.startAnimation(from_bottom_fab);
         exitButton.startAnimation(from_bottom_fab);
         if (myImageRecycleViewAdapter.getImgActived() > 0) {
             floatingUp.startAnimation(from_bottom_fab);
         }
-        cloudButton.setOnClickListener(e->{
-            Intent intent = new Intent(this,PruebaRecyler.class);
-            startActivity(intent);
-        });
 
     }
 

@@ -58,19 +58,6 @@
         app:srcCompat="@drawable/baseline_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/galleryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:clickable="true"
-        android:theme="@style/Theme.AppCompat.FloatingBtn"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="@+id/exitButton"
-        app:layout_constraintStart_toStartOf="@+id/exitButton"
-        app:srcCompat="@drawable/baseline_gallery" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,10 +79,9 @@
         android:clickable="true"
         android:theme="@style/Theme.AppCompat.FloatingBtn"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/galleryButton"
-        app:layout_constraintEnd_toEndOf="@+id/galleryButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/galleryButton"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="@+id/exitButton"
+        app:layout_constraintStart_toStartOf="@+id/exitButton"
         app:srcCompat="@drawable/baseline_cloud" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
