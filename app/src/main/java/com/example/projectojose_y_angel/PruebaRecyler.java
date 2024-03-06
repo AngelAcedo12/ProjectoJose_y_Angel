@@ -48,7 +48,6 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prueba_recyler);
-        LOG.I
         recyclerView=findViewById(R.id.recyclerImgCloud);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
         adapterImageForClud=new AdapterImageForClud(this,new ArrayList<>());
