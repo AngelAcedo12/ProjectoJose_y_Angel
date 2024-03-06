@@ -20,7 +20,7 @@ import java.util.List;
 public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClud.MyViewHolder> {
     private Context ctx;
     int layout;
-    List<Image> lista;
+    static List<Image> lista;
     private int imgActived = 0;
     private AdapterImageForClud.ItemClickListener mClickListener;
 
@@ -76,6 +76,9 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
 
     }
 
+    public static Image getImageInPosition(int pos){
+        return lista.get(pos);
+    };
     public interface ItemClickListener{
         void onItemClick(View activista, int position);
     }
