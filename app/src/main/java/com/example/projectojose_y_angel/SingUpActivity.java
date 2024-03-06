@@ -14,6 +14,9 @@ import com.example.projectojose_y_angel.repositorys.RepositoryUser;
 import com.example.projectojose_y_angel.repositorys.RepositoryUserImpLocal;
 import com.example.projectojose_y_angel.services.User.InsertarUsuario;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SingUpActivity extends AppCompatActivity implements InsertarUsuario.TaskCompleteRegisterUser {
 
     EditText editEmail;
@@ -39,19 +42,21 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
         buttonRegister.setOnClickListener(e -> {
 
 
-            String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
-
-
-
             String username = editUsername.getText().toString();
             String email = editEmail.getText().toString();
             String password = editPassword.getText().toString();
+            Pattern pattern = Pattern.compile("^\\S+$");
+            Matcher matcherUsername = pattern.matcher(username);
+            Matcher matcherPassword = pattern.matcher(password);
+            Matcher matcherEmail = pattern.matcher(email);
+            if (matcherUsername.matches() && matcherPassword.matches() && matcherUsername.matches()){
+                user = new User(username,email,password);
+                InsertarUsuario insertarUsuario = new InsertarUsuario(this,this);
+                insertarUsuario.execute(user);
+            }else {
+                Toast.makeText(this, "Los campos no pueden estar en blanco", Toast.LENGTH_SHORT).show();
+            }
 
-
-
-             user = new User(username,email,password);
-            InsertarUsuario insertarUsuario = new InsertarUsuario(this,this);
-            insertarUsuario.execute(user);
         });
 
         buttonLogIN.setOnClickListener(e -> {

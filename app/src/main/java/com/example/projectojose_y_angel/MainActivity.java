@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity  implements GetUserByName.Ta
         buttonLog=findViewById(R.id.buttonLogIn);
         buttonSingUp=findViewById(R.id.buttonSingUp);
 
+
+
         buttonLog.setOnClickListener(e -> {
             Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,10 @@ import com.example.projectojose_y_angel.repositorys.RepositoryUserImpLocal;
 import com.example.projectojose_y_angel.utils.GetUserByName;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import kotlin.text.Regex;
 
 public class LogInActivity extends AppCompatActivity implements GetUserByName.TaskCompleteLogin {
 
@@ -42,12 +47,17 @@ public class LogInActivity extends AppCompatActivity implements GetUserByName.Ta
             finish();
         });
         buttonLogIn.setOnClickListener(e -> {
-
-
-            user.setName(editUsername.getText().toString());
-            user.setPassword(editPassword.getText().toString());
-            GetUserByName getUserByName = new GetUserByName(this,this);
-            getUserByName.execute(user);
+            Pattern pattern = Pattern.compile("^\\S+$");
+            Matcher matcherPassword =  pattern.matcher(editPassword.getText().toString());
+            Matcher matcherUsername = pattern.matcher(editUsername.getText().toString());
+            if(editUsername.getText().length()>0  &&matcherUsername.matches()&& matcherPassword.matches() && editPassword.getText().length()>0){
+                user.setName(editUsername.getText().toString());
+                user.setPassword(editPassword.getText().toString());
+                GetUserByName getUserByName = new GetUserByName(this,this);
+                getUserByName.execute(user);
+            }else {
+                Toast.makeText(this, "Por favor rellena los campos", Toast.LENGTH_SHORT).show();
+            }
 
         });
     }
