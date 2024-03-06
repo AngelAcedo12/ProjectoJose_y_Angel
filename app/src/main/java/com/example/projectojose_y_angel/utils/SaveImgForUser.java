@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 
 public class SaveImgForUser extends AsyncTask<DtoUserImg, Integer, Boolean> {
@@ -46,32 +47,34 @@ public class SaveImgForUser extends AsyncTask<DtoUserImg, Integer, Boolean> {
         try {
             URL url = new URL(baseUrl);
 
-            for (DtoUserImg dtoUserImg : dtoUserImgs) {
+
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                byte[] bytes = new MapBitmapToByteArray().map(dtoUserImg.getBitmap());
-                String imagenString = Base64.encodeToString(bytes, Base64.DEFAULT);
+                byte[] bytes = new MapBitmapToByteArray().map(dtoUserImgs.get(0).getBitmap());
+                String imagenString = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    imagenString = java.util.Base64.getUrlEncoder().encodeToString(bytes);
+                }
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(URLEncoder.encode("user", "UTF-8"));
                 stringBuilder.append("=");
-                stringBuilder.append(URLEncoder.encode(dtoUserImg.getUser(), "UTF-8"));
+                stringBuilder.append(URLEncoder.encode(dtoUserImgs.get(0).getUser(), "UTF-8"));
                 stringBuilder.append("&");
                 stringBuilder.append(URLEncoder.encode("image", "UTF-8"));
                 stringBuilder.append("=");
                 stringBuilder.append(URLEncoder.encode(imagenString, "UTF-8"));
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 byte[] postDataBytes = stringBuilder.toString().getBytes("UTF-8");
+                Log.i("BYteds", Arrays.toString(bytes));
                 outputStream.write(postDataBytes);
                 outputStream.flush();
-
-
                 int resesposeCode = httpURLConnection.getResponseCode();
                 Log.i("ResposeImg", String.valueOf(resesposeCode));
                 httpURLConnection.disconnect();
 
-            }
+
             response = true;
         } catch (Exception err) {
             err.printStackTrace();

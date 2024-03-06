@@ -13,16 +13,30 @@ public class Image {
     private Bitmap bitmap;
 
     public LocalDate date;
-    public boolean cheked=false;
+    private boolean checked;
+    private String type;
     public Image() {
     }
 
-    public boolean isCheked() {
-        return cheked;
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public void setCheked(boolean cheked) {
-        this.cheked = cheked;
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public Image(Bitmap bitmap, String type) {
+        this.bitmap = bitmap;
+        this.type = type;
     }
 
     public Uri getUri() {

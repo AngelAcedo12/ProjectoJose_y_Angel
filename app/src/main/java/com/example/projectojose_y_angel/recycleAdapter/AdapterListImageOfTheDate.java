@@ -2,6 +2,9 @@ package com.example.projectojose_y_angel.recycleAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.TimeUnit;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.example.projectojose_y_angel.FotoView;
 import com.example.projectojose_y_angel.R;
 import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
@@ -67,7 +71,7 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
     public int getImgActived(){
         return  imgActived;
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener, Picasso.Listener {
         ImageView imageView;
         CheckBox checkBox;
 
@@ -81,7 +85,7 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
             itemView.setOnClickListener(this);
         }
         public void render(Image image) {
-            if (!image.isCheked()){
+            if (!image.isChecked()){
                 checkBox.setVisibility(View.INVISIBLE);
 
             }else {
@@ -89,11 +93,29 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
                 checkBox.setChecked(true);
                 checkBox.setClickable(false);
             }
-            Picasso.with(ctx).load(image.getUri()).centerCrop().resize(400,400).onlyScaleDown().into(imageView);
+            loadInPicaso(image,3);
+
 
         }
 
+        private void loadInPicaso(Image image,int count){
+            Picasso.with(ctx).load(image.getUri()).resize(400,400).onlyScaleDown()
+                    .error(R.drawable.image2).onlyScaleDown().into(imageView, new Callback() {
+                @Override
+                public void onSuccess() {
 
+                }
+
+                @Override
+                public void onError() {
+                    if (count > 0) {
+                  loadInPicaso(image,count-1);
+                }  else {
+                        Picasso.with(ctx).load(image.getUri()).into(imageView);
+
+                    }
+            }});
+        }
         @Override
         public boolean onLongClick(View view) {
             chainSelectedVisibiliteToCheckBox(getAdapterPosition());
@@ -107,15 +129,15 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
             if(checkBox.getVisibility()== View.INVISIBLE && imgActived<=10){
                 Image image = lista.get(position);
-                selectedList.add(image);
-                lista.get(position).setCheked(true);
+              selectedList.add(image);
+                lista.get(position).setChecked(true);
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked(true);
                 imgActived++;
             }else if(checkBox.getVisibility()==View.VISIBLE){
                 Image image = lista.get(position);
                 selectedList.remove(image);
-                lista.get(position).setCheked(false);
+                lista.get(position).setChecked(false);
                 checkBox.setVisibility(View.INVISIBLE);
                 checkBox.setChecked(false);
                 imgActived--;
@@ -131,6 +153,12 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
                 chainSelectedVisibiliteToCheckBox(getAdapterPosition());
             }
+        }
+
+        @Override
+        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+            Log.i("Error al cargar la imagen",exception.getMessage());
+            picasso.load(uri).resizeDimen(400,400).into(imageView);
         }
     }
     public interface ItemClickListener{

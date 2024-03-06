@@ -21,12 +21,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PruebaRecyler"
+            android:exported="false" />
+        <activity
             android:name=".FotoView"
             android:exported="false" />
         <activity
             android:name=".GaleriaActivity"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SingUpActivity"
             android:exported="false"

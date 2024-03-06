@@ -20,8 +20,10 @@ import android.widget.Toast;
 import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.models.User;
+import com.example.projectojose_y_angel.recycleAdapter.AdapterImageForClud;
 import com.example.projectojose_y_angel.recycleAdapter.AdapterListImageOfTheDate;
 import com.example.projectojose_y_angel.repositorys.RepositoryImageInSmartphone;
+import com.example.projectojose_y_angel.utils.LoadAlllImageInCloud;
 import com.example.projectojose_y_angel.utils.LoaderImageInBackGround;
 import com.example.projectojose_y_angel.utils.Mappeds.MapListImgToListDtoUserImg;
 import com.example.projectojose_y_angel.utils.SaveImgForUser;
@@ -42,6 +44,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     private FloatingActionButton mainMenuFloatingButton;
     private FloatingActionButton galleryButton;
     private FloatingActionButton cloudButton;
+    private  FloatingActionButton exitButton;
     private boolean isExpanded = false;
 
     @Override
@@ -54,6 +57,14 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         asignarComportamientoMenuFlotante();
 
 
+        exitButton.setOnClickListener(e ->{
+            SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+        });
 
         floatingUp.setOnClickListener(e -> {
             SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
@@ -83,6 +94,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         this.galleryButton = findViewById(R.id.galleryButton);
         this.cloudButton = findViewById(R.id.cloudButton);
         this.floatingUp = findViewById(R.id.floatingUp);
+        this.exitButton=findViewById(R.id.exitButton);
     }
 
     public void asignarComportamientoMenuFlotante() {
@@ -105,6 +117,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         mainMenuFloatingButton.startAnimation(rotate_anti_clock_wise);
         galleryButton.startAnimation(to_bottom_fab);
         cloudButton.startAnimation(to_bottom_fab);
+        exitButton.startAnimation(to_bottom_fab);
         if (myImageRecycleViewAdapter.getImgActived() > 0) {
             floatingUp.startAnimation(to_bottom_fab);
         }
@@ -119,10 +132,14 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
         mainMenuFloatingButton.startAnimation(rotate_clock_wise);
         galleryButton.startAnimation(from_bottom_fab);
         cloudButton.startAnimation(from_bottom_fab);
+        exitButton.startAnimation(from_bottom_fab);
         if (myImageRecycleViewAdapter.getImgActived() > 0) {
             floatingUp.startAnimation(from_bottom_fab);
         }
-
+        cloudButton.setOnClickListener(e->{
+            Intent intent = new Intent(this,PruebaRecyler.class);
+            startActivity(intent);
+        });
 
     }
 
@@ -180,11 +197,13 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             Intent intent = new Intent(this,FotoView.class);
             Image image=   myImageRecycleViewAdapter.getListImage().get(position);
 
-            intent.putExtra("volumeName",image.getVolumeName());
-            intent.putExtra("id",image.getId());
-            intent.putExtra("uri",image.getUri());
+            intent.putExtra("id",position);
+            intent.putExtra("type","local");
             startActivity(intent);
 
         }
     }
+
+
+
 }

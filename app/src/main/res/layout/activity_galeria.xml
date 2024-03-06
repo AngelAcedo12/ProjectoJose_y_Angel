@@ -11,7 +11,7 @@
         android:id="@+id/floatingUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:clickable="true"
         android:src="@drawable/baseline_upload_24"
         android:theme="@style/Theme.AppCompat.FloatingBtn"
@@ -39,7 +39,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -61,20 +61,34 @@
         android:id="@+id/galleryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        android:theme="@style/Theme.AppCompat.FloatingBtn"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="@+id/exitButton"
+        app:layout_constraintStart_toStartOf="@+id/exitButton"
+        app:srcCompat="@drawable/baseline_gallery" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:clickable="true"
         android:theme="@style/Theme.AppCompat.FloatingBtn"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/mainFloatingButton"
         app:layout_constraintEnd_toEndOf="@+id/mainFloatingButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/mainFloatingButton"
-        app:srcCompat="@drawable/baseline_gallery" />
+        app:srcCompat="@drawable/baseline_next_plan_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cloudButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:clickable="true"
         android:theme="@style/Theme.AppCompat.FloatingBtn"
         android:visibility="invisible"

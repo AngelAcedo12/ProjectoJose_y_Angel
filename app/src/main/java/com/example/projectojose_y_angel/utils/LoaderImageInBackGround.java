@@ -23,7 +23,6 @@ import java.util.List;
 public class LoaderImageInBackGround extends AsyncTask<Object, Integer, Boolean> {
     private List<Image> images = new ArrayList<>();
     private final  Context context;
-
     private TaskCompleted taskCompleted;
     private ProgressDialog progressDialog;
 

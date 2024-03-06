@@ -59,8 +59,6 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
             startActivity(intent);
             finish();
         });
-
-
     }
 
 
