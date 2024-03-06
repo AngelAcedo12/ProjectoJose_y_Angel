@@ -23,7 +23,6 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
     List<Image> lista;
     private int imgActived = 0;
     private AdapterImageForClud.ItemClickListener mClickListener;
-    private List<Image> selectedList;
 
     public AdapterImageForClud(Context ctx, List<Image> lista) {
         this.ctx = ctx;

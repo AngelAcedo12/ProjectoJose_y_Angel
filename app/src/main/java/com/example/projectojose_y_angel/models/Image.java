@@ -6,7 +6,7 @@ import android.net.Uri;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Image {
+public class Image  {
     private String volumeName;
     private int id;
     private Uri uri;
@@ -70,4 +70,5 @@ public class Image {
     public void setVolumeName(String volumeName) {
         this.volumeName = volumeName;
     }
+
 }
