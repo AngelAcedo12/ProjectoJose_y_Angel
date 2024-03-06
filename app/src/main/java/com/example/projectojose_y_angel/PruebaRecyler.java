@@ -66,12 +66,28 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
 
         loadButtons();
         asignarComportamientoMenuFlotante();
+        asignarComportamientoSalir();
 
 
 
 
     }
 
+
+    public void asignarComportamientoSalir(){
+        exitButton.setOnClickListener(e ->{
+            if(!isExpanded){
+                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        });
+    }
     public void loadButtons(){
         mainMenuFloatingButton=findViewById(R.id.mainFloatingcloud);
         galleryButton=findViewById(R.id.galleryButtonCloud);
@@ -131,7 +147,6 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
 
     @Override
     public void onItemClick(View activista, int position) {
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,FotoView.class);
         intent.putExtra("type","cloud");
         intent.putExtra("pos",position);

@@ -67,7 +67,6 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
     public void asignarComportamientoSalir(){
         exitButton.setOnClickListener(e ->{
             if(!isExpanded){
-                Toast.makeText(this, "ENTRO_GUAPO", Toast.LENGTH_SHORT).show();
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.clear();
@@ -96,7 +95,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             }
 
             //¿ ESTAS BIEN REY ?
-            Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
 
         });
     }
