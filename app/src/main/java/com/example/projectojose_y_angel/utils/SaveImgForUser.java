@@ -2,14 +2,20 @@ package com.example.projectojose_y_angel.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.utils.Mappeds.MapBitmapToByteArray;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -45,9 +51,7 @@ public class SaveImgForUser extends AsyncTask<DtoUserImg, Integer, Boolean> {
         boolean response = false;
         String responseMessage = "";
         try {
-            URL url = new URL(baseUrl);
-
-
+                 URL url = new URL(baseUrl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -66,10 +70,15 @@ public class SaveImgForUser extends AsyncTask<DtoUserImg, Integer, Boolean> {
                 stringBuilder.append("=");
                 stringBuilder.append(URLEncoder.encode(imagenString, "UTF-8"));
                 OutputStream outputStream = httpURLConnection.getOutputStream();
+
                 byte[] postDataBytes = stringBuilder.toString().getBytes("UTF-8");
                 Log.i("BYteds", Arrays.toString(bytes));
                 outputStream.write(postDataBytes);
                 outputStream.flush();
+                InputStream is = new BufferedInputStream(httpURLConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                String line =reader.readLine();
+
                 int resesposeCode = httpURLConnection.getResponseCode();
                 Log.i("ResposeImg", String.valueOf(resesposeCode));
                 httpURLConnection.disconnect();

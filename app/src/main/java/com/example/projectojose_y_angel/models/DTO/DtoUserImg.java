@@ -26,4 +26,12 @@ public class DtoUserImg {
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
+
+    @Override
+    public String toString() {
+        return "DtoUserImg{" +
+                "user='" + user + '\'' +
+                ", bitmap=" + bitmap.getByteCount() +
+                '}';
+    }
 }

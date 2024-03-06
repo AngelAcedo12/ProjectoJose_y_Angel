@@ -12,7 +12,8 @@ public class MapBitmapToByteArray implements Map<Bitmap,byte[]>{
     }
     private byte[] bitmapToByteArray(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.WEBP,100,byteArrayOutputStream);
+
+        bitmap.compress(Bitmap.CompressFormat.WEBP,80,byteArrayOutputStream);
         return  byteArrayOutputStream.toByteArray();
     }
 }

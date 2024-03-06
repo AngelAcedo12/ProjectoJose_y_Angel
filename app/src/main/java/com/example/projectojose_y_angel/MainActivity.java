@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity  implements GetUserByName.Ta
         buttonLog.setOnClickListener(e -> {
             Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
-            finish();
+
         });
         buttonSingUp.setOnClickListener(e -> {
             Intent intent = new Intent(this, SingUpActivity.class);
             startActivity(intent);
-            finish();
+
         });
 
     }

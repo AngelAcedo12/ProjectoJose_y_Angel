@@ -64,16 +64,10 @@ public class LoaderImageInBackGround extends AsyncTask<Object, Integer, Boolean>
                 Long dateSinCoverted = cursor.getLong(2);
                 DateTimeFormatter formatter=null;
                 LocalDate localDate=null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                     localDate = Instant.ofEpochMilli(dateSinCoverted).atZone(ZoneId.systemDefault()).toLocalDate();
-                    localDate=LocalDate.of( localDate.getYear(), localDate.getMonth(), 1);
-                }
-                image.setDate(localDate);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     image.setUri(MediaStore.Images.Media.getContentUri(image.getVolumeName(),image.getId()));
                 }
-                Log.i("Img",String.valueOf(image.getId()));
                 images.add(image);
                 count++;
 

@@ -67,11 +67,11 @@ public class LogInActivity extends AppCompatActivity implements GetUserByName.Ta
                 editor.putString("username",user.getUser());
                 editor.putString("password",user.getPassword());
                 if(editor.commit()){
-                    editor.apply();
+                    Intent intent = new Intent(this,PermisionActivity.class);
+                    startActivity(intent);
+                    finish();
                 };
-                Intent intent = new Intent(this,PermisionActivity.class);
-                startActivity(intent);
-                finish();
+
             }
      }
 

@@ -26,7 +26,7 @@ public class MapJSONToListImagen  implements  Map<String, List<Image>>{
 
 
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
 

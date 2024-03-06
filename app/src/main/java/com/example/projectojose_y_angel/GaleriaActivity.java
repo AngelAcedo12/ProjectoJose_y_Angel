@@ -58,13 +58,16 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
 
         exitButton.setOnClickListener(e ->{
-            SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.clear();
-            editor.commit();
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
+            if(exitButton.getVisibility()==View.VISIBLE){
+                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         });
 
         floatingUp.setOnClickListener(e -> {
@@ -73,10 +76,11 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
             if (myImageRecycleViewAdapter.getImgActived()>0){
                 try {
                     List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
+                    Log.i("ListImgBeforeSaved",dtoUserImgs.toString());
                     SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
                     saveImgForUser.execute();
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    ex.printStackTrace();
                 }
             }
 

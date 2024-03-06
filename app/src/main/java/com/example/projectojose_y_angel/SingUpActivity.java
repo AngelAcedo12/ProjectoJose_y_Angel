@@ -73,11 +73,10 @@ public class SingUpActivity extends AppCompatActivity implements InsertarUsuario
                 editor.putString("username",user.getUser());
                 editor.putString("password",user.getPassword());
                 if(editor.commit()){
-                    editor.apply();
+                    Intent intent = new Intent(this,PermisionActivity.class);
+                    startActivity(intent);
+                    finish();
                 };
-                Intent intent = new Intent(this,PermisionActivity.class);
-                startActivity(intent);
-                finish();
 
         }else{
             Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
