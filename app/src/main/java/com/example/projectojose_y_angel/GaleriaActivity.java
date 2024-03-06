@@ -66,7 +66,8 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     public void asignarComportamientoSalir(){
         exitButton.setOnClickListener(e ->{
-            if(exitButton.getVisibility()==View.VISIBLE){
+            if(!isExpanded){
+                Toast.makeText(this, "ENTRO_GUAPO", Toast.LENGTH_SHORT).show();
                 SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.clear();

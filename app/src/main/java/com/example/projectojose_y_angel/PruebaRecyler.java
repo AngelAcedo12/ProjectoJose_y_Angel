@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -24,29 +27,35 @@ import com.example.projectojose_y_angel.utils.LoadAlllImageInCloud;
 import com.example.projectojose_y_angel.utils.Mappeds.MapListImgToListDtoUserImg;
 import com.example.projectojose_y_angel.utils.SaveImgForUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.example.projectojose_y_angel.utils.Mappeds.MapBitmapToByteArray;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageInCloud.ToaskImageComplete,AdapterImageForClud.ItemClickListener {
 
     RecyclerView recyclerView;
     User user;
+    AdapterImageForClud adapterImageForClud;
 
     //buttons menu
     private FloatingActionButton mainMenuFloatingButton;
     private FloatingActionButton galleryButton;
     private  FloatingActionButton exitButton;
     private boolean isExpanded = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prueba_recyler);
+        LOG.I
+        recyclerView=findViewById(R.id.recyclerImgCloud);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        adapterImageForClud=new AdapterImageForClud(this,new ArrayList<>());
+        recyclerView.setAdapter(adapterImageForClud);
 
-        //recyclerView=findViewById(R.id.recyclerImgCloud);
-
-       // LoadAlllImageInCloud  loadAlllImageInCloud = new LoadAlllImageInCloud(this,this);
-        /*SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
+        LoadAlllImageInCloud  loadAlllImageInCloud = new LoadAlllImageInCloud(this,this);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),MODE_PRIVATE);
         String username = sharedPreferences.getString("username",null);
         String password =sharedPreferences.getString("password",null);
         String email =sharedPreferences.getString("email",null);
@@ -55,9 +64,9 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         user.setPassword(username);
         user.setEmail(username);
         loadAlllImageInCloud.execute(user);
-        */
+
         loadButtons();
-        //asignarComportamientoMenuFlotante();
+        asignarComportamientoMenuFlotante();
 
 
 
@@ -111,11 +120,10 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
 
     }
 
-
     @Override
     public void ToaskImageLoadComplete(List<Image> list) {
         Toast.makeText(this, "Carga completa", Toast.LENGTH_SHORT).show();
-        AdapterImageForClud adapterImageForClud = new AdapterImageForClud(this,list);
+        adapterImageForClud = new AdapterImageForClud(this,list);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
         recyclerView.setAdapter(adapterImageForClud);
         adapterImageForClud.setCLickListener(this);
@@ -124,7 +132,11 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
 
     @Override
     public void onItemClick(View activista, int position) {
-
+        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,FotoView.class);
+        intent.putExtra("type","cloud");
+        intent.putExtra("pos",position);
+        startActivity(intent);
     }
 
     @Override
