@@ -127,7 +127,7 @@ public class AdapterListImageOfTheDate extends RecyclerView.Adapter<AdapterListI
 
         private void chainSelectedVisibiliteToCheckBox(int position) {
 
-            if(checkBox.getVisibility()== View.INVISIBLE && imgActived<=1){
+            if(checkBox.getVisibility()== View.INVISIBLE && imgActived<1){
                 Image image = lista.get(position);
                 selectedList.add(image);
                 lista.get(position).setChecked(true);
