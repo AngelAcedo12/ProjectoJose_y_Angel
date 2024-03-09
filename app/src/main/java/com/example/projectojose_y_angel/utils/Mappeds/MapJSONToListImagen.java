@@ -20,6 +20,7 @@ public class MapJSONToListImagen  implements  Map<String, List<Image>>{
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Image image = new Image();
                 image.setBitmap(new MapByteArrayToBitmap().map(new MapStringToBiteArray().map((String) jsonObject.get("imagenBytes"))));
+                image.setId((Integer) jsonObject.get("id"));
                 images.add(image);
 
             }

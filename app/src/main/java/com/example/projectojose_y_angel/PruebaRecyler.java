@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,20 +18,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.example.projectojose_y_angel.models.DTO.DtoUserImg;
 import com.example.projectojose_y_angel.models.Image;
 import com.example.projectojose_y_angel.models.User;
 import com.example.projectojose_y_angel.recycleAdapter.AdapterImageForClud;
+import com.example.projectojose_y_angel.utils.DeleteImg;
 import com.example.projectojose_y_angel.utils.LoadAlllImageInCloud;
-import com.example.projectojose_y_angel.utils.Mappeds.MapListImgToListDtoUserImg;
-import com.example.projectojose_y_angel.utils.SaveImgForUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.example.projectojose_y_angel.utils.Mappeds.MapBitmapToByteArray;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageInCloud.ToaskImageComplete,AdapterImageForClud.ItemClickListener {
+public class PruebaRecyler extends AppCompatActivity implements DeleteImg.TaskDeleteComplete,   LoadAlllImageInCloud.ToaskImageComplete,AdapterImageForClud.ItemClickListener {
 
     RecyclerView recyclerView;
     User user;
@@ -43,6 +39,7 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
     private FloatingActionButton galleryButton;
     private  FloatingActionButton exitButton;
     private boolean isExpanded = false;
+    private FloatingActionButton deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +64,25 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         loadButtons();
         asignarComportamientoMenuFlotante();
         asignarComportamientoSalir();
+        asignarComportamientoBorrar();
+    }
 
+    public void asignarComportamientoBorrar() {
+        deleteButton.setOnClickListener(e ->{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Confirmacion de borrado");
+            alert.setMessage("¿Seguro que quieres borrar estas imagenes?");
+            alert.setPositiveButton("Aceptar",aceptDilog());
+            alert.setNegativeButton("Cancelar",null);
+            AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+        });
+    }
 
-
-
+    private DialogInterface.OnClickListener aceptDilog(){
+        DeleteImg deleteImg = new DeleteImg(this,this);
+        deleteImg.execute();
+        return null;
     }
 
 
@@ -92,6 +104,7 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         mainMenuFloatingButton=findViewById(R.id.mainFloatingcloud);
         galleryButton=findViewById(R.id.galleryButtonCloud);
         exitButton=findViewById(R.id.exitButtonCloud);
+        deleteButton=findViewById(R.id.delteImg);
     }
 
 
@@ -115,6 +128,10 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         mainMenuFloatingButton.startAnimation(rotate_anti_clock_wise);
         galleryButton.startAnimation(to_bottom_fab);
         exitButton.startAnimation(to_bottom_fab);
+        if (adapterImageForClud.getImgActived()<0){
+            deleteButton.startAnimation(to_bottom_fab);
+        }
+
 
     }
 
@@ -126,6 +143,10 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         mainMenuFloatingButton.startAnimation(rotate_clock_wise);
         galleryButton.startAnimation(from_bottom_fab);
         exitButton.startAnimation(from_bottom_fab);
+        if (adapterImageForClud.getImgActived()<0){
+            deleteButton.startAnimation(from_bottom_fab);
+        }
+
 
         galleryButton.setOnClickListener(e->{
             Intent intent = new Intent(this,GaleriaActivity.class);
@@ -146,11 +167,21 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
     }
 
     @Override
+    public void onLongItemClick(View activista, int position) {
+
+    }
+
+    @Override
     public void onItemClick(View activista, int position) {
-        Intent intent = new Intent(this,FotoView.class);
-        intent.putExtra("type","cloud");
-        intent.putExtra("pos",position);
-        startActivity(intent);
+
+        if (adapterImageForClud.getImgActived()==0){
+            Intent intent = new Intent(this,FotoView.class);
+            intent.putExtra("type","cloud");
+            intent.putExtra("pos",position);
+            startActivity(intent);
+
+        }
+
     }
 
     @Override
@@ -166,4 +197,12 @@ public class PruebaRecyler extends AppCompatActivity implements   LoadAlllImageI
         }
         return super.dispatchTouchEvent(ev);
     }
+
+    @Override
+    public void deleteTaskComplete(boolean b) {
+
+    }
+
+
+
 }

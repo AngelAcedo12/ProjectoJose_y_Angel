@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class Image  {
     private String volumeName;
+
     private int id;
     private Uri uri;
     private Bitmap bitmap;

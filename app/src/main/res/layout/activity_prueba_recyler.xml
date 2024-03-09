@@ -33,6 +33,20 @@
         app:srcCompat="@drawable/baseline_gallery" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delteImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        android:theme="@style/Theme.AppCompat.FloatingBtn"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/galleryButtonCloud"
+        app:layout_constraintEnd_toEndOf="@+id/galleryButtonCloud"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/galleryButtonCloud"
+        app:srcCompat="@drawable/baseline_delete_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exitButtonCloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +69,8 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
