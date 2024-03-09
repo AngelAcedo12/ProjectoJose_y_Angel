@@ -1,6 +1,7 @@
 package com.example.projectojose_y_angel.recycleAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectojose_y_angel.R;
+import com.example.projectojose_y_angel.models.DTO.ImageDeleteDTO;
 import com.example.projectojose_y_angel.models.Image;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
     static List<Image> lista;
     private int imgActived = 0;
     private AdapterImageForClud.ItemClickListener mClickListener;
-    private List<Image> selectedList;
+    private List<ImageDeleteDTO> selectedList;
 
     public AdapterImageForClud(Context ctx, List<Image> lista) {
         this.ctx = ctx;
@@ -39,6 +39,16 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_image_layout, parent, false);
 
         return new AdapterImageForClud.MyViewHolder(view);
+    }
+    public List<Image> getImages(){
+        return  this.lista;
+    }
+    public void removeImage(int position){
+        this.lista.remove(position);
+        this.notifyDataSetChanged();
+    }
+    public List<ImageDeleteDTO> getSelecImages(){
+        return  this.selectedList;
     }
     public void setCLickListener(AdapterImageForClud.ItemClickListener itemClickListener){
         this.mClickListener=itemClickListener;
@@ -81,14 +91,8 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
         }
 
 
-
-        private void loadInPicaso(Image image, int count) {
-
-        }
-
         @Override
         public boolean onLongClick(View view) {
-            T
             chainSelectedVisibiliteToCheckBox(getAdapterPosition());
             if(mClickListener!=null)
                 mClickListener.onLongItemClick(view,getAdapterPosition());
@@ -97,17 +101,18 @@ public class AdapterImageForClud extends RecyclerView.Adapter<AdapterImageForClu
         }
 
         private void chainSelectedVisibiliteToCheckBox(int position) {
-
-            if(checkBox.getVisibility()== View.INVISIBLE && imgActived<5){
+            if(checkBox.getVisibility()==View.INVISIBLE && imgActived<5){
                 Image image = lista.get(position);
-                selectedList.add(image);
+                ImageDeleteDTO imagenDTO=new ImageDeleteDTO(image.getId(),position);
+                selectedList.add(imagenDTO);
                 lista.get(position).setChecked(true);
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked(true);
                 imgActived++;
             }else if(checkBox.getVisibility()==View.VISIBLE){
                 Image image = lista.get(position);
-                selectedList.remove(image);
+                ImageDeleteDTO imagenDTO=new ImageDeleteDTO(image.getId(),position);
+                selectedList.remove(imagenDTO);
                 lista.get(position).setChecked(false);
                 checkBox.setVisibility(View.INVISIBLE);
                 checkBox.setChecked(false);

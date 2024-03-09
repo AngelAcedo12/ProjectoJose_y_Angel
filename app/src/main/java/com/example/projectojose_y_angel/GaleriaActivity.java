@@ -56,7 +56,7 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
         cloudButton.setOnClickListener(e->{
             if(!isExpanded){
-                Intent intent = new Intent(this,PruebaRecyler.class);
+                Intent intent = new Intent(this, CloudRecyler.class);
                 startActivity(intent);
             }
         });
@@ -81,23 +81,25 @@ public class GaleriaActivity extends AppCompatActivity implements AdapterListIma
 
     public void asignarComportamientoCloudButton(){
         floatingUp.setOnClickListener(e -> {
-            SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-            String username = pref.getString("username",null);
-            if (myImageRecycleViewAdapter.getImgActived()>0){
-                try {
-                    List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username,this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
-                    Log.i("ListImgBeforeSaved",dtoUserImgs.toString());
-                    SaveImgForUser saveImgForUser= new SaveImgForUser(this,dtoUserImgs,this);
-                    saveImgForUser.execute();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+            if(!isExpanded) {
+                SharedPreferences pref = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+                String username = pref.getString("username", null);
+                if (myImageRecycleViewAdapter.getImgActived() > 0) {
+                    try {
+                        List<DtoUserImg> dtoUserImgs = new MapListImgToListDtoUserImg(username, this.getApplicationContext()).map(myImageRecycleViewAdapter.getSelectedList());
+                        Log.i("ListImgBeforeSaved", dtoUserImgs.toString());
+                        SaveImgForUser saveImgForUser = new SaveImgForUser(this, dtoUserImgs, this);
+                        saveImgForUser.execute();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
+
+                //¿ ESTAS BIEN REY ?
+                //Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
             }
-
-            //¿ ESTAS BIEN REY ?
-            //Toast.makeText(this, username , Toast.LENGTH_SHORT).show();
-
         });
+
     }
 
 
